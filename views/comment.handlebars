@@ -1,0 +1,44 @@
+<div class="row mb-4 project">
+  <div class="col-md-5">
+    <h2>
+      {{post.title}}
+    </h2>
+    <p>Created by {{user.name}} on {{format_date post.date_created}}</p>
+  </div>
+  <div class="col-md-7">
+    <p>
+      {{post.content}}
+    </p>
+  </div>
+</div>
+
+<div class="post-comments">
+  <h4>Comments:</h4>
+  {{#each comments as |comment|}} 
+    <div class="comment">
+      <p>{{content}}</p>
+      <p>Posted by {{user.username}} on {{formatDate post.date_created}}</p>
+    </div>
+  {{/each}}
+</div>
+
+
+{{#if Logged_in}}
+
+<div class+"add-comment">
+      <h4>Add a Comment:</h4>
+      <form class="comment-form">
+        <div class="form-group">
+        <textarea class="form-input" id="comment-content" name="comment-content"></textarea>
+      </div>
+       <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+      </form>
+
+
+</div>
+
+{{/if}}
+
+<script src="/js/comment.js"></script>
