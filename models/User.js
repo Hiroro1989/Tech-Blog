@@ -4,9 +4,8 @@ const sequelize = require("../config/connection");
 
 //Create the User model by extending the Sequelize Model class
 class User extends Model {
-  //The checkPassword method is added to the User class to compare the login password with the stored hashed password.
-  static checkPassword(loginPw, harsedPw) {
-    return bcrypt.compareSync(loginPw, harshedPw);
+  async checkPassword(password) {
+    return await bcrypt.compare(password, this.password);
   }
 }
 //Initialize the User model and define its properties
