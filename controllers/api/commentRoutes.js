@@ -16,14 +16,12 @@ router.get("/:post_id", async (res, req) => {
 //create comment
 router.post("/", async (req, res) => {
   try {
-    const { post_id, content } = req.body;
 
-    const comment = await Comment.create({
-      post_id,
-      content,
+    const newComment = await Comment.create({
+      ...req.body,
       user_id: req.session.user_id,
     });
-    res.status(200).json(comment);
+    res.status(200).json(newComment);
   } catch (err) {
     res.status(500).json({ message: "Failed to create a comment" });
   }
