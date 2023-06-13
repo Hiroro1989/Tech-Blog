@@ -2,12 +2,14 @@ const router = require("express").Router();
 const { Comment, Post, User } = require("../../models");
 
 //get specific post to get comments
-router.get("/:post_id", async (res, req) => {
+router.get("/:id", async (res, req) => {
   try {
-    const postC = await Post.findByPk(req.params.post_id, {
-      include: [{ model: Comment, include: User }, User],
+    const commentData = await Comment.findAll({
+      where:{
+        id: req.params.id
+      }
     });
-    res.status(200).json(postC);
+    res.json(commentData);
   } catch (err) {
     res.status(500).json({ message: "Failed to get comments" });
   }
@@ -16,7 +18,6 @@ router.get("/:post_id", async (res, req) => {
 //create comment
 router.post("/", async (req, res) => {
   try {
-
     const newComment = await Comment.create({
       ...req.body,
       user_id: req.session.user_id,
